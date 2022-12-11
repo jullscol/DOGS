@@ -12,7 +12,7 @@ function rootReducer(state = initialState, action){
             dogs: action.payload
           }
           default:
-            return state
+            return state;
     }
 
 
