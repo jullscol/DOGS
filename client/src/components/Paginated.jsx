@@ -1,4 +1,5 @@
 import React from "react";
+import "./Paginated.css";
 
 export default function Paginated ({ dogsPerPage, allDogs,paginated }) {
   const pageNumbers = []
@@ -8,14 +9,15 @@ export default function Paginated ({ dogsPerPage, allDogs,paginated }) {
   }
   return (
     <nav>
-      <ul className='paginated'>
-        {pageNumbers &&
-          pageNumbers.map((number) => (
-            <li className='number' key={number}>
-              <a onClick={() => paginated(number)}>{number}</a>
-            </li>
-          ))}
-      </ul>
+         <div className= "div-paginador">
+        {pageNumbers.map(number => (
+          <div>
+            <button className= "boton-paginador" onClick={() => paginated(number)}>
+              {number}
+            </button>
+          </div>
+        ))}
+      </div>
     </nav>
-  );
+  )
 }

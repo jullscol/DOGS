@@ -42,7 +42,7 @@ router.get('/dogs/:id', async (req, res) =>{
 
 })
 
-/* router.get("/temperaments", async (req, res) =>{
+ /* router.get("/temperaments", async (req, res) =>{
     const temperamentApi = await axios.get('https://api.thedogapi.com/v1/breeds')
     const temperaments = temperamentApi.data.map(el => el.temperament)
     const tempEach = temperaments.map(el =>{
@@ -56,9 +56,9 @@ router.get('/dogs/:id', async (req, res) =>{
     res.send(allTemperaments);
   })
      
-
+ */
     
-router.post('/dogs', async (req,res) =>{
+/* router.post('/dogs', async (req,res) =>{
  let{
   name,
   height,
@@ -83,8 +83,8 @@ router.post('/dogs', async (req,res) =>{
  res.send('Dog created successfully')
 });
 
- */
 
+ */
 
 
 
