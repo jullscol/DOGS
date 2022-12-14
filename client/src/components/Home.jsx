@@ -4,11 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import {Link}  from "react-router-dom";
 import Card from "./Card";
 import { getDogs } from "../actions/index.js";
+import Paginated from './Paginated';
 
 function Home() {
   const dispatch = useDispatch();
-
   const allDogs = useSelector((state) => state.dogs);
+  const [currentPage, setCurrenPage] =useState(1)
+  const [dogsPerPage, setDogsPerPage] = useState(8)
+  const indexOfLastDog = currentPage * dogsPerPage
+  const indexOfFirstDog = indexOfLastDog - dogsPerPage
+  const currentDogs = allDogs.slice(indexOfFirstDog,indexOfLastDog)
+
+  const paginated = (pageNumber) => {
+    setCurrenPage(pageNumber)
+  }
+
 
   useEffect(() => {
     dispatch(getDogs());
@@ -43,13 +53,20 @@ function Home() {
           <option value="created">created</option>
           <option value="api">existent i API</option>
         </select>
-        {allDogs.length === 0 ?(
+
+        <Paginated
+        dogsPerPage={dogsPerPage}
+        allDogs={allDogs.length}
+        paginated = {paginated}
+        />
+
+        { allDogs.length === 0 ?(
         <div>Loading</div>
-        ): (
-          allDogs.map((el) =>(
+        ): ( 
+          currentDogs.map((el) =>(
           <Card
           id= {el.id}
-          Name= {el.name}
+          name= {el.name}
           height= {el.height}
           weight= {el.weight}
           life_span= {el.life_span}

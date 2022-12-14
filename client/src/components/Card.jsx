@@ -1,14 +1,15 @@
 import React from "react";
+import "./Card.css";
 
  function Card({name,imageUrl,temperament, weight, id}){
  return(
-    <div>
+    <div className="dog-card" >
+
     <h3>{name}</h3>
     <h3>{temperament}</h3>
     <h3>{weight}</h3>
-    <img src={imageUrl} alt="img not found" width="200px" height="250" />
+    <img className="card-img" src={imageUrl} alt={name} />
     </div>
-
  );
 }
  

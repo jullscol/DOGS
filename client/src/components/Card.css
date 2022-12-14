@@ -1,0 +1,12 @@
+.dog-card{
+        border: 1px solid black;
+        border-radius: 1rem;
+        margin: 1rem;
+        width: 20rem;
+        padding: 1rem;
+      }
+      
+      .card-img{
+        width: 70%;
+        border-radius: 1rem;
+      }
