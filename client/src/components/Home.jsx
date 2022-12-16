@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "./Card";
-import { getDogs } from "../actions/index.js";
+import { getDogs, filterCreated } from "../actions/index.js";
 import Paginated from "./Paginated";
 import "./Home.css";
 
@@ -30,11 +30,15 @@ function Home() {
     e.preventDefault();
     dispatch(getDogs());
   }
+  
+  function handleFilterCreated(e){
+    dispatch(filterCreated(e.target.value));
+  }
 
   return (
     <div className="cards">
-      <div className="fondo-home">
-        <div>
+      <div>
+       <div>
           <Link to="/dogs">Create dog</Link>
           <h1>Dog breeds</h1>
           <button
@@ -50,11 +54,10 @@ function Home() {
             <option value="desc">descendiente</option>
             <option value="assc">ascendiente</option>
           </select>
-          <select>
-            <option value="All">alphabetical order</option>
-            <option value="weight">weight</option>
-            <option value="created">created</option>
-            <option value="api">existent i API</option>
+          <select onChange={e => handleFilterCreated(e)}>
+            <option value="All">All in alphabetical order</option>
+            <option value='created'>created</option>
+            <option value="api">existent in API</option>
           </select>
 
           <Paginated

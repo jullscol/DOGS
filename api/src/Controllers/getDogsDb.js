@@ -1,4 +1,9 @@
-/* const getDogsDb = async () =>{
+
+const{Dog, Temperament} = require('../db')
+
+const getDogsDb = async () =>{
+    
+    
     return await Dog.findAll({
         include:{
             model:Temperament,
@@ -8,4 +13,6 @@
             },
         }
     });
-}; */
+}; 
+
+module.exports = { getDogsDb };

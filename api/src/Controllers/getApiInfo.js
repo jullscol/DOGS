@@ -9,8 +9,8 @@ const getApiInfo = () => {
       return {
         id: el.id,
         name: el.name,
-        height: el.height?.metric, 
-        weight: el.weight?.metric, 
+        height: el.height.metric, 
+        weight: el.weight.metric, 
         life_span: el.life_span,
         temperament: el.temperament,
         imageUrl: el.image?.url

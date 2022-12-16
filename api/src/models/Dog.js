@@ -16,24 +16,29 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     height: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     weight: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     life_span: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     
-  
-    /* createdInDb:{
+    image: {
+      type: DataTypes.STRING,
+      allowNull:true,
+     },
+    
+     createdInDb: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull:false,
       defaultValue: true,
-    }  */
- 
+     } 
+
+    
   });
 };

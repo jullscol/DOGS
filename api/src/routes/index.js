@@ -5,7 +5,8 @@ const { Router } = require('express');
 
 //const Dog = require('../models/Dog');
 const{getAllDogs} = require('../Controllers/getAllDogs.js');
-const{Temperament} = require('../models/Temperament');
+const{Temperament, Dog} = require('../db')
+
 
 //const Dog = require('../models/Dog');
 
@@ -42,23 +43,25 @@ router.get('/dogs/:id', async (req, res) =>{
 
 })
 
- /* router.get("/temperaments", async (req, res) =>{
+ router.get("/temperaments", async (req, res) =>{
     const temperamentApi = await axios.get('https://api.thedogapi.com/v1/breeds')
     const temperaments = temperamentApi.data.map(el => el.temperament)
-    const tempEach = temperaments.map(el =>{
-      for(let i=0; i<length; i++) return el[i]})
-      tempEach.forEach(el => {
-        Temperament.findCreate({
-          where: {name: el}
-        })
-    })
-    const allTemperaments = await Temperament.findAll();
-    res.send(allTemperaments);
-  })
-     
- */
+
     
-/* router.post('/dogs', async (req,res) =>{
+    const temp = temperaments.toString().split(",")
+    console.log(temp)
+    temp.forEach(t => {
+      let tempEach= t.trim()
+      Temperament.findOrCreate({
+        where: {name: tempEach}
+      })
+    })
+
+    const allTemperaments = await Temperament.findAll()
+    res.send(allTemperaments)
+  })
+       
+router.post('/dogs', async (req,res) =>{
  let{
   name,
   height,
@@ -78,13 +81,13 @@ router.get('/dogs/:id', async (req, res) =>{
   image
  })
 
- let temperamentDb = await Temperament.findAll({where: { name : temperament}})
+ let temperamentDb = await Temperament.findAll({where: { name:temperament}})
  dogCreated.addTemperament(temperamentDb)
  res.send('Dog created successfully')
-});
+}); 
 
 
- */
+
 
 
 

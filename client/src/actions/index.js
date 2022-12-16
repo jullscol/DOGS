@@ -10,3 +10,10 @@ export function getDogs() {
       });
     };
   }
+
+export function filterCreated(payload) {
+  return {
+      type: "FILTER_CREATED",
+
+  };
+}
