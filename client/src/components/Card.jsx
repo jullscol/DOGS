@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Card.css";
 
- function Card({name,imageUrl,temperament, id}){
- return(
-    <div className="dog-card" >
 
-    <h3>{name}</h3>
-    <h3>Temperament: <br/> {temperament}</h3>
-
-    <img className="card-img" src={imageUrl} alt={name} />
-    </div>
- );
+export default function Card({
+   name,
+   temperament,
+   height,
+   weight,
+   life_span,
+   imageUrl,
+   id,
+   
+ }){
+   return (
+      <div >
+        <div >
+          <div>
+            <h3>{name}</h3>
+            <img
+              className="img-card-styles"
+              src={imageUrl}
+              height="200px"
+              width="270px"
+              alt=""
+            />
+          </div>
+  
+          <div>
+            <p className="card-titles">Temperament: {temperament}</p>
+            <p className="card-titles">Weight: {weight} kg</p>
+            <p className="card-titles">Height: {height}</p>
+            <p className="card-titles">Life Span: {life_span}</p>
+         
+          </div>
+        </div>
+      </div>
+    );
 }
- 
-export default Card;
+
 
  

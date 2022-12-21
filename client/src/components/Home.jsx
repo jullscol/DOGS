@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "./Card";
-import { getDogs, filterCreated, orderByName } from "../actions/index.js";
+import { getDogs, filterCreated, orderByName, orderByWeight } from "../actions/index.js";
 import Paginated from "./Paginated";
+import SearchBar from "./SearchBar";
 import "./Home.css";
 
 function Home() {
@@ -12,14 +13,14 @@ function Home() {
   const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperaments);
   const [orden, setOrden] = useState(" ");
-  const [currentPage, setCurrenPage] = useState(1);
-  const [dogsPerPage, setDogsPerPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dogsPerPage, setDogsPerPage] = useState(9);
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
   const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
 
   const paginated = (pageNumber) => {
-    setCurrenPage(pageNumber);
+    setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
@@ -33,9 +34,16 @@ function Home() {
   function handleSort(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
-    setCurrenPage(1);
+    setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
   }
+  function handleOrderByWeight(e) {
+    e.preventDefault();
+    dispatch(orderByWeight(e.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+
 
   function handleFilterCreated(e) {
     dispatch(filterCreated(e.target.value));
@@ -67,12 +75,17 @@ function Home() {
             <option value="desc">descendiente</option>
             <option value="asc">ascendiente</option>
           </select>
+          <select onChange={(e) => handleOrderByWeight(e)}>
+                <option value="minToMax">Min to Max</option>
+                <option value="maxToMin">Max to Min</option>
+              </select>
           </div>
           <Paginated
             dogsPerPage={dogsPerPage}
             allDogs={allDogs.length}
             paginated={paginated}
           />
+          <SearchBar/>
 
           {allDogs.length === 0 ? (
             <div>Loading</div>
@@ -85,7 +98,7 @@ function Home() {
                 weight={el.weight}
                 life_span={el.life_span}
                 temperament={el.temperament}
-                imageUrl={el.imageUrl}
+                imageUrl={el.imageUrl? el.imageUrl :el.image}
               />
             ))
           )}

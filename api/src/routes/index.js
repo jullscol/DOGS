@@ -6,6 +6,7 @@ const { Router } = require("express");
 //const Dog = require('../models/Dog');
 const { getAllDogs } = require("../Controllers/getAllDogs.js");
 const { Temperament, Dog } = require("../db");
+const { v4:uuidv4 } = require("uuid");
 
 //const Dog = require('../models/Dog');
 
@@ -57,22 +58,34 @@ router.get("/temperaments", async (req, res) => {
   res.send(allTemperaments);
 });
 
-router.post("/dogs", async (req, res) => {
+router.post("/dogs", async (req, res, next) => {
+  const id = uuidv4();
   let { name, height, weight, life_span, createdInDb, temperament, image } =
     req.body;
 
-  let dogCreated = await Dog.create({
+ 
+
+  const dogCreated = await Dog.create({
     name,
     height,
     weight,
     life_span,
     createdInDb,
     image,
+    temperament,
+    id,
   });
 
-  let temperamentDb = await Temperament.findAll({
+  const temperamentDb = await Temperament.findAll({
     where: { name: temperament },
   });
+  /* Promise.all([dogCreated, temperamentDb])
+    .then((response) => {
+      let [dogCreatedRes, temperamentDbRes] = response;
+      return res.send(dogCreatedRes.addTemperament(temperamentDbRes));
+    })
+    .catch((err) => next(err)); */
+
   dogCreated.addTemperament(temperamentDb);
   res.send("Dog created successfully");
 });

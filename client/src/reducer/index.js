@@ -1,6 +1,7 @@
 const initialState = {
   dogs: [],
   allDogs: [],
+  temperaments: [],
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -10,6 +11,17 @@ function rootReducer(state = initialState, action) {
         dogs: action.payload,
         allDogs: action.payload,
       };
+    case "GET_NAME_BREEDS":
+      return {
+        ...state,
+        dogs: action.payload,
+      };
+
+    case "POST_DOGS":
+      return {
+        ...state,
+      };
+
     case "FILTER_CREATED":
       const createdFilter =
         action.payload === "created"
@@ -29,8 +41,8 @@ function rootReducer(state = initialState, action) {
       };
     case "ORDER_BY_NAME":
       let sortedArr =
-        action.payload === "asc"? 
-        state.dogs.sort(function (a, b) {
+        action.payload === "asc"
+          ? state.dogs.sort(function (a, b) {
               if (a.name > b.name) {
                 return 1;
               }
@@ -38,8 +50,8 @@ function rootReducer(state = initialState, action) {
                 return -1;
               }
               return 0;
-            }): 
-             state.dogs.sort(function (a, b) {
+            })
+          : state.dogs.sort(function (a, b) {
               if (a.name > b.name) {
                 return -1;
               }
@@ -51,6 +63,27 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogs: sortedArr,
+      };
+    case "ORDER_BY_WEIGHT":
+      let arr = state.dogs.filter((el) => el.weight !== false);
+
+      let sortWeight =
+        action.payload === "maxToMin"
+          ? arr.sort(function (a, b) {
+              return (
+                b.weight.split(/ - /)[0] -
+                a.weight.split(/ - /)[0]
+              );
+            })
+          : arr.sort(function (a, b) {
+              return (
+                a.weight.split(/ - /)[1] -
+                b.weight.split(/ - /)[1]
+              );
+            });
+      return {
+        ...state,
+        dogs: sortWeight,
       };
   }
 }
