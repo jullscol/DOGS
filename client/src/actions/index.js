@@ -14,7 +14,7 @@ export function getDogs() {
   export function getNameBreed(name){
     return async function (dispatch){
       try{
-        var json =await axios.get (" http://localhost:3001/dogs?name=" + name);
+        var json =await axios.get (" http://localhost:3001/dogs?name=" + name, {});
         return dispatch({
           type:"GET_NAME_BREEDS",
           payload: json.data
@@ -37,12 +37,12 @@ export function getDogs() {
     }
   }
   
- /*  export function filterBreedsByTemperament(payload) {
+ export function filterBreedsByTemperament(payload) {
     return {
-      type: FILTER_BY_TEMPERAMENT,
+      type: "FILTER_BY_TEMPERAMENT",
       payload,
     };
-  } */
+  }
   
 
   export function postDogs(payload) {

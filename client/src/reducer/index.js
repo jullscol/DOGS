@@ -29,7 +29,7 @@ function rootReducer(state = initialState, action) {
           : state.allDogs.filter((el) => !el.createdInDb);
       return {
         ...state,
-        dogs: action.payload === "All" ? state.allDogs : createdFilter,
+        dogs: createdFilter,
       };
     default:
       return state;
@@ -39,6 +39,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         temperaments: action.payload,
       };
+      case "FILTER_BY_TEMPERAMENT":
+        const breedsFiltered = state.allDogs;
+        const tempFiltered = breedsFiltered.filter((el) => {
+          return el.temperament?.includes(action.payload);
+        });
+        return {
+          ...state,
+          dogs: tempFiltered,
+        };
+
     case "ORDER_BY_NAME":
       let sortedArr =
         action.payload === "asc"

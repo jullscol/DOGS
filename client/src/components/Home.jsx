@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "./Card";
-import { getDogs, filterCreated, orderByName, orderByWeight } from "../actions/index.js";
+import { getDogs, filterCreated, orderByName, orderByWeight, filterBreedsByTemperament } from "../actions/index.js";
 import Paginated from "./Paginated";
 import SearchBar from "./SearchBar";
 import "./Home.css";
@@ -14,7 +14,8 @@ function Home() {
   const temperaments = useSelector((state) => state.temperaments);
   const [orden, setOrden] = useState(" ");
   const [currentPage, setCurrentPage] = useState(1);
-  const [dogsPerPage, setDogsPerPage] = useState(9);
+  const [dogsPerPage, setDogsPerPage] = useState(8);
+  const [input, setInput] = useState("");
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
   const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
@@ -31,6 +32,15 @@ function Home() {
     e.preventDefault();
     dispatch(getDogs());
   }
+  function handleSelect(e) {
+    setInput({
+      ...input,
+      temperament: e.target.value,
+    });
+
+    dispatch(filterBreedsByTemperament(e.target.value));
+  }
+
   function handleSort(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
@@ -46,28 +56,35 @@ function Home() {
 
 
   function handleFilterCreated(e) {
+    setCurrentPage(1);
     dispatch(filterCreated(e.target.value));
   }
 
   return (
+        
     <div className="cards">
+       
       <div>
-        <Link to="/dogs">Create dog</Link>
-        <h1>Dog breeds</h1>
-        <button
-          onClick={(e) => {
-            handleClick(e);
-          }}
-        >
-          Load all the dogs
-        </button>
-       {/*  <SearchBar /> */}
+      <h1>Henry Dogs</h1>
+        <Link to="/dogs">
+        <button>Create your own breed</button>
+        </Link>
+        <SearchBar setCurrentPage={setCurrentPage}/>
+       
         <div>
           <div>
           <select onChange={(e) => handleFilterCreated(e)}>
             <option value="All">All in alphabetical order</option>
             <option value="created">created</option>
-            <option value="api">existent in API</option>
+          </select>
+          <select onChange={(e) => handleSelect(e)}>
+                {temperaments?.map((temp) => {
+                  return (
+                    <option key={temp.name} value={temp.name}>
+                      {temp.name}
+                    </option>
+                  );
+                })}
           </select>
           </div>
           <div>
@@ -85,7 +102,7 @@ function Home() {
             allDogs={allDogs.length}
             paginated={paginated}
           />
-          <SearchBar/>
+        
 
           {allDogs.length === 0 ? (
             <div>Loading</div>

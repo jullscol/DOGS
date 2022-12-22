@@ -1,21 +1,22 @@
 import React from 'react';
 import {useState} from 'react';
 import {useDispatch} from "react-redux";
-import { getNameBreed } from '../actions';
+import { getNameBreed } from '../actions/index';
 
-export default function SearchBar(){
+export default function SearchBar({setCurrentPage}){
     const dispatch = useDispatch()
-    const [name, setName] = useState("")
+    const [name, setName] = useState("");
 
     function handleInputChange(e){
         e.preventDefault()
-        setName(e.target.value)
+        setName(e.target.value);
         console.log(name)
     }
 
     function handleSubmit (e){
         e.preventDefault()
-        dispatch(getNameBreed(name))
+        setCurrentPage(1);
+        dispatch(getNameBreed(name));
     }
 
     return(
