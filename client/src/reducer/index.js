@@ -1,58 +1,87 @@
+import {
+  GET_BREEDS,
+  FILTER_BY_TEMPERAMENT,
+  GET_TEMPERAMENTS,
+  GET_BREEDS_BY_NAME,
+  FILTER_CREATED_DB,
+  ORDER_BY_BREED,
+  POST_BREED,
+  GET_DETAILS,
+  ORDER_BY_WEIGHT,
+  CLEAR_DETAIL,
+} from "../entorno.js";
+
 const initialState = {
-  dogs: [],
-  allDogs: [],
+  breeds: [],
+  allBreeds: [],
   temperaments: [],
+  allTemperaments: [],
+  detail: [],
 };
-function rootReducer(state = initialState, action) {
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case "GET_DOGS":
+    case GET_BREEDS:
       return {
         ...state,
-        dogs: action.payload,
-        allDogs: action.payload,
-      };
-    case "GET_NAME_BREEDS":
-      return {
-        ...state,
-        dogs: action.payload,
+        breeds: action.payload,
+        allBreeds: action.payload,
       };
 
-    case "POST_DOGS":
+    case GET_BREEDS_BY_NAME:
       return {
         ...state,
+        breeds: action.payload,
       };
 
-    case "FILTER_CREATED":
-      const createdFilter =
-        action.payload === "created"
-          ? state.allDogs.filter((el) => el.createdInDb)
-          : state.allDogs.filter((el) => !el.createdInDb);
-      return {
-        ...state,
-        dogs: createdFilter,
-      };
-    default:
-      return state;
-
-    case "GET_TEMPERAMENTS":
+    case GET_TEMPERAMENTS:
       return {
         ...state,
         temperaments: action.payload,
+        allTemperaments: action.payload,
       };
-      case "FILTER_BY_TEMPERAMENT":
-        const breedsFiltered = state.allDogs;
-        const tempFiltered = breedsFiltered.filter((el) => {
-          return el.temperament?.includes(action.payload);
-        });
-        return {
-          ...state,
-          dogs: tempFiltered,
-        };
+    case GET_DETAILS:
+      return {
+        ...state,
+        detail: action.payload,
+      };
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        detail: [],
+      };
+    case FILTER_BY_TEMPERAMENT:
+      const breedsFiltered = state.allBreeds;
+      const tempFiltered = breedsFiltered.filter((el) => {
+        return el.temperament?.includes(action.payload);
+      });
+      return {
+        ...state,
+        breeds: tempFiltered,
+      };
 
-    case "ORDER_BY_NAME":
-      let sortedArr =
+    case FILTER_CREATED_DB:
+      const totalBreeds =
+        action.payload === "createdInDb"
+          ? state.allBreeds.filter((el) => el.createdInDb)
+          : state.allBreeds.filter((el) => !el.createdInDb);
+
+      return {
+        ...state,
+        breeds: totalBreeds,
+      };
+
+    case POST_BREED:
+      return {
+        ...state,
+      };
+
+    case ORDER_BY_BREED:
+      console.log(action.payload);
+
+      let sortBreed =
         action.payload === "asc"
-          ? state.dogs.sort(function (a, b) {
+          ? state.breeds.sort(function (a, b) {
               if (a.name > b.name) {
                 return 1;
               }
@@ -61,7 +90,7 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             })
-          : state.dogs.sort(function (a, b) {
+          : state.breeds.sort(function (a, b) {
               if (a.name > b.name) {
                 return -1;
               }
@@ -70,32 +99,42 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             });
+
       return {
         ...state,
-        dogs: sortedArr,
+        breeds: sortBreed,
       };
-    case "ORDER_BY_WEIGHT":
-      let arr = state.dogs.filter((el) => el.weight !== false);
+
+    case ORDER_BY_WEIGHT:
+      let arr = state.breeds.filter((el) => el.weight.metric !== false);
 
       let sortWeight =
-        action.payload === "maxToMin"
+        action.payload === "minToMax"
           ? arr.sort(function (a, b) {
               return (
-                b.weight.split(/ - /)[0] -
-                a.weight.split(/ - /)[0]
+                b.weight.metric.split(/ - /)[0] -
+                a.weight.metric.split(/ - /)[0]
               );
             })
           : arr.sort(function (a, b) {
               return (
-                a.weight.split(/ - /)[1] -
-                b.weight.split(/ - /)[1]
+                a.weight.metric.split(/ - /)[1] -
+                b.weight.metric.split(/ - /)[1]
               );
             });
+
       return {
         ...state,
-        dogs: sortWeight,
+        breeds: sortWeight,
       };
+    case "GET_CLOUDINARY_IMG":
+      //console.log(action.payload)
+      return {
+        ...state,
+        productImg: action.payload,
+      };
+
+    default:
+      return state;
   }
 }
-
-export default rootReducer;

@@ -1,25 +1,24 @@
-import './App.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import LandingPage from './components/LandingPage'
-import Home from './components/Home'
-import DogCreate from './components/DogCreate'
-/* import {DogDetail} from '/components/DogDetail'; */
+import "./App.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import LandingPage from "./components/LandingPage/LandingPage";
+import Home from "./components/Home/Home";
+import BreedCreate from "./components/BreedCreate/BreedCreate";
+import Detail from "./components/Detail/Detail";
 
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
-      <Switch>
-        <Route exact path = '/' component={LandingPage}/>
-        <Route path = '/home' component={Home}/>
-        {/* <Route path ="/home/:id" component={DogDetail} /> */}
-        <Route path ="/dogs" component={DogCreate} /> 
-
-        
-      </Switch>
-    </div>
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/home" component={Home} />
+          <Route path="/breed" component={BreedCreate} />
+          <Route exact path="/home/:id" component={Detail} />
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }
 
 export default App;
+
