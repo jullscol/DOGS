@@ -29,6 +29,7 @@ function filterDuplicates(arrayAllTemp) {
 
 function getAllTemperaments(_request, response, next) {
   Temperament.findAll()
+  
     .then((temp) => {
       return response.send(temp);
     })

@@ -22,7 +22,7 @@ export default function Home() {
   const allBreeds = useSelector((state) => state.breeds);
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [breedsPerPage, setBreedsPerPage] = useState(9);
+  const [breedsPerPage, setBreedsPerPage] = useState(8);
   const temperaments = useSelector((state) => state.temperaments);
   const [input, setInput] = useState("");
   const indexOfLastBreed = currentPage * breedsPerPage;
@@ -101,11 +101,11 @@ export default function Home() {
                 className="select-style"
                 onChange={(e) => setBreedsPerPage(e.target.value)}
               >
-                <option value="9">9</option>
-                <option value="18">18</option>
-                <option value="27">27</option>
-                <option value="36">36</option>
-                <option value="45">45</option>
+                <option value="8">8</option>
+                <option value="16">16</option>
+                <option value="24">24</option>
+                <option value="32">32</option>
+                <option value="40">40</option>
               </select>
             </>
             <>
