@@ -30,7 +30,7 @@ const { BREEDS_URL } = process.env;
 const { Temperament } = require("./src/db");
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: false}).then(() => {
   //pruebo la conexion con la base de datos
   console.log("conexion con la base de datos correcta");
   //traigo todos los temperamentos de la api externa

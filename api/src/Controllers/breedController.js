@@ -2,6 +2,7 @@ const { Breed, Temperament } = require("../db");
 const axios = require("axios");
 const { Op } = require("sequelize");
 require("dotenv").config();
+const {BREEDS_URL, BREEDS_QUERY } = process.env;
 const { v4: uuidv4 } = require("uuid");
 
 function addBreed(request, response, next) {
@@ -9,9 +10,9 @@ function addBreed(request, response, next) {
   let { name, height, weight, life_span, createdInDb, image, temperament } =
     request.body;
 
-  /* if (image === "")
+  if (image === "")
     image = "https://subirimagenes.online/data/20220816005347214359-scaled.jpg";
- */
+
   const breedCreated = Breed.create({
     name,
     height,
@@ -38,7 +39,7 @@ function addBreed(request, response, next) {
 function getAllBreeds(request, response, next) {
   const { name } = request.query;
   if (name) {
-    const breedApi = axios.get(`https://api.thedogapi.com/v1/breeds?name=${name}`);
+    const breedApi = axios.get(`${BREEDS_QUERY}?name=${name}`);
     const breedMine = Breed.findAll({
       include: {
         model: Temperament,
@@ -62,7 +63,7 @@ function getAllBreeds(request, response, next) {
       })
       .catch((err) => next(err));
   } else {
-    const breedApi = axios.get(`https://api.thedogapi.com/v1/breeds`);
+    const breedApi = axios.get(`${BREEDS_URL}`);
     const breedMine = Breed.findAll({
       include: {
         model: Temperament,
@@ -88,7 +89,7 @@ function getById(request, response, next) {
 
   if (id < 265) {
     axios
-      .get(`https://api.thedogapi.com/v1/breeds`)
+      .get(`${BREEDS_URL}`)
       .then((b) => {
         let findId = b.data.filter((idApi) => idApi.id === parseInt(id));
         response.send(findId);

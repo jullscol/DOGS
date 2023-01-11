@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { getBreedsByName } from "../../actions/index";
 import "./SearchBar.css";
 
-export default function SearchBar({ setCurrentPage }) {
+export default function SearchBar() {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
@@ -12,12 +12,13 @@ export default function SearchBar({ setCurrentPage }) {
   function handleInputChange(e) {
     e.preventDefault();
     setName(e.target.value);
+    console.log(name)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setCurrentPage(1);
     dispatch(getBreedsByName(name));
+    console.log(name)
   }
 
   return (

@@ -10,7 +10,9 @@ import {
   GET_DETAILS,
   CLEAR_DETAIL,
   ORDER_BY_BREED,
-  ORDER_BY_WEIGHT,
+  SORT_WEIGHT,
+  ORDER_BY_MIN_WEIGHT,
+  ORDER_BY_MAX_WEIGHT,
 } from "../entorno.js";
 
 export function getBreeds() {
@@ -53,7 +55,7 @@ export function postBreed(payload) {
 export function getBreedsByName(name) {
   return async function (dispatch) {
     try {
-      var json = await axios.get(`${BREEDS_LOCAL_URL}?name=` + name, {});
+      var json = await axios.get("http://localhost:3001/breeds/?name=" + name);
       return dispatch({
         type: GET_BREEDS_BY_NAME,
         payload: json.data,
@@ -77,12 +79,15 @@ export function orderByBreed(payload) {
     payload,
   };
 }
-export function orderByWeight(payload) {
+export function sortWeight(payload){
   return {
-    type: ORDER_BY_WEIGHT,
-    payload,
-  };
+      type:SORT_WEIGHT,
+      payload,
+  }
 }
+
+
+
 
 export function getDetail(id) {
   return async function (dispatch) {

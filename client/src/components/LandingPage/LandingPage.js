@@ -10,16 +10,15 @@ export default function LandingPage() {
           <h1 className="welcome-text">Dogs App</h1>
         </div>
         <div>
-          <p>
+          <h4>
             In this page you can search and see the details of numerous dog
             breeds
-          </p>
-          <p>and also create your own dog breed!</p>
-          <p>have fun and thank you for visiting my react proyect</p>
+          </h4>
+          <h4>and also create your own dog breed!</h4>
         </div>
         <div className="welcome-btn">
           <Link to="/home">
-            <button className="enter-btn">Entrar!</button>
+            <button className="enter-btn">Enter!</button>
           </Link>
         </div>
       </div>

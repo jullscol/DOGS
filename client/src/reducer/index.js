@@ -7,8 +7,10 @@ import {
   ORDER_BY_BREED,
   POST_BREED,
   GET_DETAILS,
-  ORDER_BY_WEIGHT,
+  SORT_WEIGHT,
   CLEAR_DETAIL,
+  WEIGHT_MAX,
+  WEIGHT_MIN,
 } from "../entorno.js";
 
 const initialState = {
@@ -105,28 +107,62 @@ export default function reducer(state = initialState, action) {
         breeds: sortBreed,
       };
 
-    case ORDER_BY_WEIGHT:
-      let arr = state.breeds.filter((el) => el.weight.metric !== false);
+    case SORT_WEIGHT:
+      if( action.payload === 'All'){
+                return {
+                    ...state,
+                    allBreeds: [...state.allBreeds],
+                    breeds: [...state.breeds],
+                }
+            }
+            if( action.payload === 'small'){
+                
+                return{
+                    ...state,
+                    
+                    allBreeds: [...state.allBreeds].sort((a, b) =>{
+                        let pesoA= parseInt(a.weight.metric.split('-')[0]);
+                        let pesoB= parseInt(b.weight.metric.split('-')[0]);
+                       
+                        if(pesoA > pesoB) return 1;
+                        if(pesoA < pesoB) return -1;
+                        else return 0;   
+                    }),
+                    breeds: [...state.breeds].sort((a, b) =>{
+                        let pesoA= parseInt(a.weight.metric.split('-')[0]);
+                        let pesoB= parseInt(b.weight.metric.split('-')[0]);
+                            
+                        
+                        if(pesoA > pesoB) return 1;
+                        if(pesoA < pesoB) return -1;
+                        else return 0;
+                    })
+                }
+            }
+            
+                if( action.payload === 'big'){
+                    
+                return {
+                    allBreeds: [...state.allBreeds].sort((a, b) =>{
+                        let pesoA= parseInt(a.weight.metric.split('-')[0]);
+                        let pesoB= parseInt(b.weight.metric.split('-')[0]);
+                           
+                        if(pesoA < pesoB) return 1;
+                        if(pesoA > pesoB) return -1;
+                        else return 0;   
+                    }),
+                    breeds: [...state.breeds].sort((a, b) =>{
+                        let pesoA= parseInt(a.weight.metric.split('-')[0]);
+                        let pesoB= parseInt(b.weight.metric.split('-')[0]);
 
-      let sortWeight =
-        action.payload === "minToMax"
-          ? arr.sort(function (a, b) {
-              return (
-                b.weight.metric.split(/ - /)[0] -
-                a.weight.metric.split(/ - /)[0]
-              );
-            })
-          : arr.sort(function (a, b) {
-              return (
-                a.weight.metric.split(/ - /)[1] -
-                b.weight.metric.split(/ - /)[1]
-              );
-            });
+                        if(pesoA < pesoB) return 1;
+                        if(pesoA > pesoB) return -1;
+                        else return 0;   
+                    })
+                }
+                };
+                break;
 
-      return {
-        ...state,
-        breeds: sortWeight,
-      };
     case "GET_CLOUDINARY_IMG":
       //console.log(action.payload)
       return {

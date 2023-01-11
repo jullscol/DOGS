@@ -10,9 +10,8 @@ function Header() {
       <div className="header-sub-container">
         <div className="header-left"></div>
         <div className="header-middle">
-          {/* <h1>Proyect</h1> */}
-         {/*  <img className="header-logo" src={logo} /> */}
-          {/* <h1>Dogs</h1> */}
+          <h1>Proyect </h1>
+          <h1>Dogs</h1>
         </div>
         <div className="header-right"></div>
       </div>

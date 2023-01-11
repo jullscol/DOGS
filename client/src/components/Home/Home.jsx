@@ -6,15 +6,16 @@ import {
   filterCreatedDb,
   getTemperaments,
   orderByBreed,
-  orderByWeight,
+  sortWeight
+ ,
+
 } from "../../actions";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
 import "./Home.css";
-/* import Footer from "../Footer/Footer"; */
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
-
 import { Link } from "react-router-dom";
 
 export default function Home() {
@@ -64,12 +65,12 @@ export default function Home() {
     dispatch(filterCreatedDb(e.target.value));
   }
 
-  function handleOrderByWeight(e) {
+  function handleOrdenarWeitgh(e) {
     e.preventDefault();
-    dispatch(orderByWeight(e.target.value));
-    setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    dispatch(sortWeight(e.target.value));
   }
+
+  
 
   return (
     <div className="home-main-container">
@@ -78,7 +79,7 @@ export default function Home() {
         <Link to="/breed">
           <button className="create-breed-btn">Create your own breed</button>
         </Link>
-        <SearchBar setCurrentPage={setCurrentPage} />
+        <SearchBar />
       </div>
 
       <div className="home-sub-container">
@@ -109,7 +110,7 @@ export default function Home() {
               </select>
             </>
             <>
-              <label className="labels">Filter by: </label>
+              <label className="labels">Filter by Breeds: </label>
               <select
                 className="select-style"
                 onChange={(e) => handleFilterCreatedDb(e)}
@@ -117,6 +118,7 @@ export default function Home() {
                 <option value="all">Existent</option>
                 <option value="createdInDb">Created</option>
               </select>
+              <label className="labels">Filter by Temperaments: </label>
               <select
                 className="select-style"
                 onChange={(e) => handleSelect(e)}
@@ -142,14 +144,17 @@ export default function Home() {
               </select>
 
               <select
-                className="select-style"
-                onChange={(e) => {
-                  handleOrderByWeight(e);
-                }}
-              >
-                <option value="minToMax">Min to Max</option>
-                <option value="maxToMin">Max to Min</option>
-              </select>
+                className="select-style"onChange={e=> handleOrdenarWeitgh(e)}>
+                
+                <option value='All'>By Weight</option>
+            <option value='small'> Light  </option>
+            <option value='big'> Heavy  </option>
+
+                </select>
+
+
+
+
               <button
                 className="reset-btn"
                 onClick={(e) => {
@@ -198,7 +203,7 @@ export default function Home() {
         </div>
       </div>
       <div className="paging-container">
-      {/*   <Footer /> */}
+      {   <Footer /> }
       </div>
     </div>
   );
