@@ -55,7 +55,7 @@ export default function reducer(state = initialState, action) {
     case FILTER_BY_TEMPERAMENT:
       const breedsFiltered = state.allBreeds;
       const tempFiltered = breedsFiltered.filter((el) => {
-        return el.temperament?.includes(action.payload);
+        return el.temperaments || el.temperament?.includes(action.payload);
       });
       return {
         ...state,

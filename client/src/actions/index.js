@@ -11,8 +11,7 @@ import {
   CLEAR_DETAIL,
   ORDER_BY_BREED,
   SORT_WEIGHT,
-  ORDER_BY_MIN_WEIGHT,
-  ORDER_BY_MAX_WEIGHT,
+  
 } from "../entorno.js";
 
 export function getBreeds() {

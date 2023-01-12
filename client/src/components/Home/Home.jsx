@@ -29,7 +29,7 @@ export default function Home() {
   const indexOfLastBreed = currentPage * breedsPerPage;
   const indexOfFirstBreed = indexOfLastBreed - breedsPerPage;
   const currentBreeds = allBreeds.slice(indexOfFirstBreed, indexOfLastBreed);
-
+   console.log(allBreeds)
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -45,14 +45,13 @@ export default function Home() {
   }
 
   function handleSelect(e) {
-    setInput({
+   /*  setInput({
       ...input,
       temperament: e.target.value,
-    });
-
+    }); */
     dispatch(filterBreedsByTemperament(e.target.value));
   }
-
+  console.log(input)
   function handleOrderByBreed(e) {
     e.preventDefault();
     dispatch(orderByBreed(e.target.value));
@@ -125,7 +124,7 @@ export default function Home() {
               >
                 {temperaments?.map((temp) => {
                   return (
-                    <option key={temp.name} value={temp.name}>
+                    <option key={temp.id} value={temp.name}>
                       {temp.name}
                     </option>
                   );
