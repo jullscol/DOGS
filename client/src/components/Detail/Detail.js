@@ -35,10 +35,10 @@ export default function Detail(props) {
             </div>
             <div className="data-breed-detail">
               <h4 className="data-breed-data">
-                Height: {breedDetails[0].height.metric} cm
+                Height: {breedDetails[0].height.imperial} cm
               </h4>
               <h4 className="data-breed-data">
-                Weight: {breedDetails[0].weight.metric} kg
+                Weight: {breedDetails[0].weight.imperial} kg
               </h4>
               <h4 className="data-breed-data">
                 Life Span: {breedDetails[0].life_span}

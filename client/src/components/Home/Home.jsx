@@ -70,7 +70,6 @@ export default function Home() {
   }
 
   
-
   return (
     <div className="home-main-container">
       <Header />
@@ -177,8 +176,8 @@ export default function Home() {
                             ? el.temperament
                             : el.temperaments?.map((el) => el.name).join(", ")
                         }
-                        height={el.height.metric ? el.height.metric : el.height}
-                        weight={el.weight.metric ? el.weight.metric : el.weight}
+                        height={el.height.imperial ? el.height.imperial : el.height}
+                        weight={el.weight.imperial ? el.weight.imperial : el.weight}
                         life_span={el.life_span}
                         image={
                           el.image
