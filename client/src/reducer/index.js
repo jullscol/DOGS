@@ -9,7 +9,6 @@ import {
   GET_DETAILS,
   SORT_WEIGHT,
   CLEAR_DETAIL,
-
 } from "../entorno.js";
 
 const initialState = {
@@ -52,10 +51,24 @@ export default function reducer(state = initialState, action) {
         detail: [],
       };
     case FILTER_BY_TEMPERAMENT:
+      console.log(state.allBreeds);
       const breedsFiltered = state.allBreeds;
       const tempFiltered = breedsFiltered.filter((el) => {
-        return el.temperaments || el.temperament?.includes(action.payload);
+        return el.temperament?.includes(action.payload);
       });
+
+      const tempFiltereddb = breedsFiltered.filter((el) => {
+        if (el.createdInDb) {
+          for (var i = 0; i < el.temperaments.length; i++) {
+            if (el.temperaments[i].name == action.payload) {
+              tempFiltered.push(el);
+              break;
+            }
+          }
+        }
+        return true;
+      });
+
       return {
         ...state,
         breeds: tempFiltered,
@@ -107,75 +120,66 @@ export default function reducer(state = initialState, action) {
       };
 
     case SORT_WEIGHT:
-      if( action.payload === 'All'){
-                return {
-                    ...state,
-                    allBreeds: [...state.allBreeds],
-                    breeds: [...state.breeds],
-                }
-            }
-            if( action.payload === 'small'){
-                
-                return{
-                    ...state,
-                    
-                    allBreeds: [...state.allBreeds].sort((a, b) =>{
+      if (action.payload === "All") {
+        return {
+          ...state,
+          allBreeds: [...state.allBreeds],
+          breeds: [...state.breeds],
+        };
+      }
+      if (action.payload === "small") {
+        return {
+          ...state,
 
+          allBreeds: [...state.allBreeds].sort((a, b) => {
+            let pesoA = parseInt(a.weight.imperial) || parseInt(a.weight);
+            let pesoB = parseInt(b.weight.imperial) || parseInt(b.weight);
 
-                        let pesoA= parseInt(a.weight.imperial) || parseInt(a.weight);
-                        let pesoB= parseInt(b.weight.imperial) || parseInt(b.weight);
-                        
-                       
-                        if(pesoA > pesoB) return 1;
-                        if(pesoA < pesoB) return -1;
-                        else return 0;   
-                    }),
-                    breeds: [...state.breeds].sort((a, b) =>{
-                        let pesoA= parseInt(a.weight.imperial) || parseInt(a.weight);
-                        let pesoB= parseInt(b.weight.imperial) || parseInt(b.weight);
-                        
-                        
-                        if(pesoA > pesoB) return 1;
-                        if(pesoA < pesoB) return -1;
-                        else return 0;
-                    }),
-                }
-            }
-            
-                if( action.payload === 'big'){
-                    
-                return {
-                    allBreeds: [...state.allBreeds].sort((a, b) =>{
-                        let pesoA= parseInt(a.weight.imperial)|| parseInt(a.weight);
-                        let pesoB= parseInt(b.weight.imperial)|| parseInt(b.weight);
+            if (pesoA > pesoB) return 1;
+            if (pesoA < pesoB) return -1;
+            else return 0;
+          }),
+          breeds: [...state.breeds].sort((a, b) => {
+            let pesoA = parseInt(a.weight.imperial) || parseInt(a.weight);
+            let pesoB = parseInt(b.weight.imperial) || parseInt(b.weight);
 
-                                                 
-                        if(pesoA < pesoB) return 1;
-                        if(pesoA > pesoB) return -1;
-                        else return 0;   
-                    }),
-                    breeds: [...state.breeds].sort((a, b) =>{
-                        let pesoA= parseInt(a.weight.imperial) || parseInt(a.weight);
-                        let pesoB= parseInt(b.weight.imperial) || parseInt(b.weight);
+            if (pesoA > pesoB) return 1;
+            if (pesoA < pesoB) return -1;
+            else return 0;
+          }),
+        };
+      }
 
-                        
-                        if(pesoA < pesoB) return 1;
-                        if(pesoA > pesoB) return -1;
-                        else return 0;   
-                    })
-                }
-                };
-                break;
+      if (action.payload === "big") {
+        return {
+          allBreeds: [...state.allBreeds].sort((a, b) => {
+            let pesoA = parseInt(a.weight.imperial) || parseInt(a.weight);
+            let pesoB = parseInt(b.weight.imperial) || parseInt(b.weight);
 
-                case "GET_CLOUDINARY_IMG":
-                  //console.log(action.payload)
-                  return {
-                    ...state,
-                    productImg: action.payload,
-                  };
-            
-                default:
-                  return state;
-              }
-            }
-            
+            if (pesoA < pesoB) return 1;
+            if (pesoA > pesoB) return -1;
+            else return 0;
+          }),
+          breeds: [...state.breeds].sort((a, b) => {
+            let pesoA = parseInt(a.weight.imperial) || parseInt(a.weight);
+            let pesoB = parseInt(b.weight.imperial) || parseInt(b.weight);
+
+            if (pesoA < pesoB) return 1;
+            if (pesoA > pesoB) return -1;
+            else return 0;
+          }),
+        };
+      }
+      break;
+
+    case "GET_CLOUDINARY_IMG":
+      //console.log(action.payload)
+      return {
+        ...state,
+        productImg: action.payload,
+      };
+
+    default:
+      return state;
+  }
+}
