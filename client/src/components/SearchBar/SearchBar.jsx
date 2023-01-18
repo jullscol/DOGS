@@ -12,12 +12,14 @@ export default function SearchBar() {
   function handleInputChange(e) {
     e.preventDefault();
     setName(e.target.value);
+   
     console.log(name)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getBreedsByName(name));
+    
     console.log(name)
   }
 
@@ -26,18 +28,22 @@ export default function SearchBar() {
       <input
         type="text"
         placeholder="Search..."
-        onChange={(e) => handleInputChange(e)}
+        onChange={(e) => handleInputChange(e)
+        }
         className="inputSearch"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSubmit(e);
           }
+        
         }}
+        
       />
       <button
         className="search-btn"
         type="submit"
         onClick={(e) => handleSubmit(e)}
+      
       >
         Search
       </button>

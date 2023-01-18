@@ -3,7 +3,6 @@ const { Router } = require("express");
 // Ejemplo: const authRouter = require('./auth.js');
 const BreedRoutes = require("./breed");
 const TemperamentRoutes = require("./temperament");
-const DeleteBreed = require("./breed");
 
 const router = Router();
 

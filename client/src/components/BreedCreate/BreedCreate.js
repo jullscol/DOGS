@@ -110,10 +110,10 @@ function BreedCreate(_requirements) {
     <div> loading... </div>
   ) : (
     <div className={"home-main-container"}>
-      <div className={"form-title-container"}>
-        <h1 className={"form-title"}>Create Your Own Breed</h1>
+      <div >
+        <h1 className={"label-style"}>Create Your Own Breed</h1>
       </div>
-      <div className={"form-sub-container"}>
+      <div>
         <form onSubmit={(e) => handleSubmit(e)} className={"form-syle"}>
           {requirements.map((req) => {
             value = req.name;
@@ -128,7 +128,7 @@ function BreedCreate(_requirements) {
 
             if (text || number || url) {
               return (
-                <div key={req.id} className={"text-number-container"}>
+                <div key={req.id}>
                   <label
                     htmlFor={req.name}
                     key={req.id}
@@ -152,7 +152,7 @@ function BreedCreate(_requirements) {
 
             if (select) {
               return (
-                <div key={req.id} className={"select-container"}>
+                <div key={req.id}>
                   <label
                     htmlFor={req.prop}
                     key={randomId}
@@ -183,13 +183,13 @@ function BreedCreate(_requirements) {
                       )}
                   </select>
                   {input[req.name].map((sel) => (
-                    <div key={sel} className={"select-delete-container"}>
-                      <label htmlFor={sel} className={"select-delete-option"}>
+                    <div key={sel} >
+                      <label htmlFor={sel} >
                         {sel}
                       </label>
                       <button
                         onClick={(e) => handleDelete(req.name, sel)}
-                        className={"select-delete-button"}
+                        
                       >
                         X
                       </button>

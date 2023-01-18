@@ -3,7 +3,7 @@ const {
   getAllBreeds,
   addBreed,
   getById,
-  deleteBreed,
+  
 } = require("../Controllers/breedController");
 
 const router = Router();
